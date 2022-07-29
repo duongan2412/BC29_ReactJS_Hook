@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 // import './index.scss';
 
 export default function Header() {
+    const navigate = useNavigate();
     return (
         <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <a className="navbar-brand" href="#"> Movie </a>
@@ -18,7 +20,9 @@ export default function Header() {
                     <button className="btn btn-outline-info my-2 my-sm-0 mr-2" type="sumit">
                         Register
                     </button>
-                    <button className="btn btn-outline-success my-2 my-sm-0">Login</button>
+                    <button onClick={() => {
+                        navigate("/login")
+                    }} className="btn btn-outline-success my-2 my-sm-0">Login</button>
                 </div>
             </div>
         </nav>
