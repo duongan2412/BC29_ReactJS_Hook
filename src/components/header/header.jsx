@@ -36,7 +36,7 @@ export default function Header() {
                                 </button>
                                 <button onClick={() => {
                                     navigate("/login")
-                                }} className="btn btn-outline-success my-2 my-sm-0">Login</button>
+                                }} className="btn btn-outline-danger my-2 my-sm-0">Login</button>
                             </>
                         ) : (
                             <>
