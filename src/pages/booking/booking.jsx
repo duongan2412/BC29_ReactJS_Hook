@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Chair from '../../modules/chair/chair';
-import { fetchRoomListApi } from '../../services/booking';
+import { bookingTicketApi, fetchRoomListApi } from '../../services/booking';
 
 
 export default function Booking() {
     const [dsGhe, setDsGhe] = useState([]);
     const [roomList, setRoomList] = useState();
     const params = useParams();
+    const navigate = useNavigate();
     useEffect(() => {
         fetchRoomList()
     }, []);
@@ -28,8 +29,25 @@ export default function Booking() {
         }
         setDsGhe(data)
     }
+    const handleBookingTicket = async () => {
+        console.log(dsGhe);
+        const dsVe = dsGhe.map((ele) => {
+            return {
+                maGhe: ele.maGhe,
+                giaVe: ele.giaVe
+            }
+        })
+        console.log(dsVe);
+        const submitData = {
+            maLichChieu: params.maLichChieu,
+            danhSachVe: dsVe
+        };
+        await bookingTicketApi(submitData);
+        alert("DAT VE THANH CONG");
+        navigate("/")
+    }
 
-    console.log(roomList)
+    // console.log(roomList)
     return (
         roomList ? (
             <div className='row w-75 mx-auto py-5'>
@@ -46,12 +64,12 @@ export default function Booking() {
                     }
                 </div>
                 <div className="col-4">
-                    <img src={roomList.thongTinPhim.hinhAnh} />
+                    <img src={roomList.thongTinPhim.hinhAnh} className="img-fluid" />
                     <h4>Ten phim: {roomList.thongTinPhim.tenPhim}</h4>
                     <h5>Mo ta {roomList.thongTinPhim.moTa}</h5>
                     <p>Ghe:
                         {dsGhe.map(ele => (
-                            <p key={ele.tenGhe}> {ele.tenGhe}</p>
+                            <span key={ele.tenGhe} className="badge badge-danger"> {ele.tenGhe}  </span>
                         ))}
                     </p>
                     <p>Tong tien:
@@ -60,6 +78,7 @@ export default function Booking() {
                             return preValue
                         }, 0).toLocaleString()}
                     </p>
+                    <button onClick={handleBookingTicket} className='btn btn-success'>DAT VE</button>
                 </div>
             </div>
         )

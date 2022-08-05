@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { fetchMoviesListApi } from '../../services/movies';
@@ -24,7 +25,8 @@ export default function MovieList() {
                         <img style={{ height: 350, objectFit: 'cover' }} className="card-img-top" src={ele.hinhAnh} alt="movie" />
                         <div className="card-body">
                             <h5 className="card-title">{ele.tenPhim}</h5>
-                            <button onClick={() => navigate(`/movie/${ele.maPhim}`)} className="btn btn-info">XEM CHI TIẾT</button>
+                            <Button loading type="primary" onClick={() => navigate(`/movie/${ele.maPhim}`)}>XEM CHI TIẾT</Button>
+                            {/* <button  className="btn btn-info"></button> */}
                         </div>
                     </div>
                 </div>

@@ -5,16 +5,16 @@
     margin-right: 3px;
     margin-bottom: px;
 
-    &.daDat {
-        cursor: not-allowed;
-        background-color: gray;
-    }
-
     &.gheVip {
         background-color: red;
     }
 
     &.dangDat {
         background-color: yellow;
+    }
+
+    &.daDat {
+        cursor: not-allowed;
+        background-color: gray;
     }
 }

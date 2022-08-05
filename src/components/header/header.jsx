@@ -1,9 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { setUserInfoAction } from '../../store/action/user.action';
 // import './index.scss';
 
 export default function Header() {
+    const dispatch = useDispatch();
+    const userState = useSelector((state) => state.userReducer);
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("USER_INFO_KEY");
+        dispatch(setUserInfoAction(null));
+        navigate("/");
+    }
+
     return (
         <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <a className="navbar-brand" href="#"> Movie </a>
@@ -13,16 +24,27 @@ export default function Header() {
             <div className="collapse navbar-collapse" id="collapsibleNavId">
                 <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li className="nav-item active">
-                        <a className="nav-link" href="#"> Home </a>
+                        <NavLink className="nav-link" to="/"> Home </NavLink>
                     </li>
                 </ul>
                 <div className="ml-auto">
-                    <button className="btn btn-outline-info my-2 my-sm-0 mr-2" type="sumit">
-                        Register
-                    </button>
-                    <button onClick={() => {
-                        navigate("/login")
-                    }} className="btn btn-outline-success my-2 my-sm-0">Login</button>
+                    {
+                        !userState.userInfo ? (
+                            <>
+                                <button className="btn btn-outline-info my-2 my-sm-0 mr-2" type="sumit">
+                                    Register
+                                </button>
+                                <button onClick={() => {
+                                    navigate("/login")
+                                }} className="btn btn-outline-success my-2 my-sm-0">Login</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>Xin chao {userState.userInfo.hoTen}</span>
+                                <button onClick={handleLogout} className='btn btn-primary'>DANG XUAT</button>
+                            </>
+                        )
+                    }
                 </div>
             </div>
         </nav>
