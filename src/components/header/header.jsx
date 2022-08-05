@@ -40,7 +40,7 @@ export default function Header() {
                             </>
                         ) : (
                             <>
-                                <span>Xin chao {userState.userInfo.hoTen}</span>
+                                <span>Hello {userState.userInfo.hoTen}</span>
                                 <button onClick={handleLogout} className='btn btn-primary'>DANG XUAT</button>
                             </>
                         )
